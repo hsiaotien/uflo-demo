@@ -1,0 +1,18 @@
+# jdbc
+jdbc:
+  url: jdbc:mysql://localhost:3306/uflo?useUnicode=true&amp;characterEncoding=UTF-8
+  driverClassName: com.mysql.jdbc.Driver
+  username: root
+  password: 123
+  minIdle: 10
+  maxActive: 20
+  maxWait: 1000
+  removeAbandonedTimeout: 60
+  removeAbandoned: true
+  logAbandoned: true
+
+# hibernate
+
+hibernate:
+  dialect: org.hibernate.dialect.MySQL5Dialect
+  show_sql: false

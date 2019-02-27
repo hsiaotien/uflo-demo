@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <script src="jquery.min.js">
+
+    </script>
+</head>
+<body style="margin:10px">
+    <table border="1" style="width: 100%;  ">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>任务名</td>
+                <td>描述</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody id="todoBody">
+
+        </tbody>
+    </table>
+    <script type="application/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url:'bp/loadTodo',
+                type:'GET',
+                data:{},
+                success:function (tasks) {
+                    var body = $('#todoBody');
+                    body.empty();
+                    for (var i=0; i<tasks.length; i++) {
+                        var task=tasks[i];
+                        var row = $('<tr><td>' + task.id+ '</td><td>'+ task.taskName + '</td><td>' +task.description+ '</td></tr>');
+                        body.append(row);
+                        var op = $('<td></td>');
+                        row.append(op);
+                        var link = $('<div><a href=\"###\">处理任务</a></div>');
+                        op.append(link);
+                        link.click(function () {
+                            var url = task.url + "?taskId=" +task.id + "&businessId=" + task.businessId;
+                            window.open(url, "_blank")
+                        });
+                    }
+                },
+                error:function () {
+                    alert("加载待办失败！")
+                }
+            })
+        })
+
+
+    </script>
+</body>
+</html>

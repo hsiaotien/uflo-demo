@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>开启流程</title>
+    <script src="jquery.min.js">
+
+    </script>
+</head>
+<body style="margin:10px">
+    <div>
+        <span>
+            <label>开始节点任务配置URL-描述：</label>
+        </span>
+        <span>
+            <input type="text" id="desc" style="height: 25px;width: 200px">
+        </span>
+        <button type="button" id='loginButton' style="display:block">数据核查完毕</button>
+    </div>
+</body>
+<script type="application/javascript">
+    $(document).ready(function () {
+        $('#loginButton').click(function () {
+            login();
+        })
+    })
+
+    function getParameter(name) {
+        var params=window.location.search;
+        params=params.substring(1,params.length);
+        params = params.split('&');
+        for (var i=0; i<params.length; i++) {
+            var items = params[i].split("=");
+            var pname = items[0];
+            if (name === pname) {
+                return items[1];
+            }
+        }
+    }
+
+    function login() {
+        var desc = $('#desc').val();
+        var taskId = getParameter("taskId");
+        $.ajax({
+            url:'/bp/startNodeTaskUrl',
+            data:{desc:desc,taskId:taskId},
+            type:'POST',
+            success:function () {
+                alert("开始成功");
+                window.parent.dialogEvent.eventEmitter.emit(window.parent.dialogEvent.CLOSE_DIALOG)
+            },
+            error: function () {
+                alert("开始失败");
+            }
+        })
+    }
+
+
+</script>
+</html>

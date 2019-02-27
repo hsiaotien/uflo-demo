@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>开启流程</title>
+    <script src="jquery.min.js">
+
+    </script>
+</head>
+<body style="margin:10px">
+    <div style="margin-bottom: 10px">
+        <span>
+            <label>名称：</label>
+        </span>
+        <span>
+            <input type="text" id="name" style="height: 25px;width: 200px">
+        </span>
+    </div>
+    <div>
+        <span>
+            <label>描述：</label>
+        </span>
+        <span>
+            <input type="text" id="desc" style="height: 25px;width: 200px">
+        </span>
+        <button type="button" id='loginButton' style="display:block">开启流程</button>
+    </div>
+</body>
+<script type="application/javascript">
+    $(document).ready(function () {
+        $('#loginButton').click(function () {
+            login();
+        })
+    })
+    
+    function login() {
+        var name = $('#name').val();
+        var desc = $('#desc').val();
+        $.ajax({
+            url:'/bp/startProcess',
+            data:{name:name,desc:desc},
+            type:'POST',
+            success:function () {
+                alert("开启成功");
+                window.open('uflo/todo','_self');
+            },
+            error: function () {
+                alert("开启失败");
+            }
+        })
+    }
+</script>
+</html>

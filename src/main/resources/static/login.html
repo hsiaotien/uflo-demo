@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <script src="jquery.min.js">
+
+    </script>
+</head>
+<body style="margin:10px">
+    <div style="margin-bottom: 10px">
+        <span>
+            <label>用户名：</label>
+        </span>
+        <span>
+            <input type="text" id="username" style="height: 25px;width: 200px">
+        </span>
+    </div>
+    <div>
+        <span>
+            <label>密码：</label>
+        </span>
+        <span>
+            <input type="password" id="password" style="height: 25px;width: 200px">
+        </span>
+        <button type="button" id='loginButton' style="display:block">登陆</button>
+    </div>
+</body>
+<script type="application/javascript">
+    $(document).ready(function () {
+        $('#loginButton').click(function () {
+            login();
+        })
+    })
+    
+    function login() {
+        var username = $('#username').val();
+        var password = $('#password').val();
+        if (username === '') {
+            alert("请输入用户名！")
+            return;
+        }
+        $.ajax({
+            url:'doLogin',
+            data:{username:username,password:password},
+            type:'POST',
+            success:function () {
+                alert("登陆成功");
+                window.open('uflo/todo','_self');
+            },
+            error: function () {
+                alert("登陆失败");
+            }
+        })
+    }
+</script>
+</html>
